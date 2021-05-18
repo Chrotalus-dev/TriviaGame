@@ -53,14 +53,14 @@ function mappingObjects(currentQuestion) {
 
 function turn() {
     if (currentTurnLabel.innerHTML === player1.name) {
-        $('input[name="answers"]').attr('checked',false);
+        document.querySelector('input[name="answers"]:checked').checked = false;
         currentTurnLabel.innerHTML = player2.name;
         currentQuestion = player2.questions[questionNumberPlayer2];
         numquestion.innerHTML = "Question Number " + (questionNumberPlayer2+1).toString();
         mappingObjects(currentQuestion);
         questionNumberPlayer2 = questionNumberPlayer2 + 1;
     } else if (currentTurnLabel.innerHTML === player2.name) {
-        $('input[name="answers"]').attr('checked',false);
+        document.querySelector('input[name="answers"]:checked').checked = false;
         currentTurnLabel.innerHTML = player1.name;
         numquestion.innerHTML = "Question Number " + (questionNumberPlayer1+1).toString();
         currentQuestion = player1.questions[questionNumberPlayer1];
@@ -77,8 +77,10 @@ function submitAnswer() {
     var currentAnswers = new Question(currentQuestion.incorrect_answers, currentQuestion.correct_answer);
     if (currentAnswers.answer_is_correct(answer) && currentTurnLabel.innerHTML === player1.name) {
         player1.score = player1.score + 1;
+        document.getElementById("playerX").value = player1.score;
     } else if (currentAnswers.answer_is_correct(answer) && currentTurnLabel.innerHTML === player2.name) {
         player2.score = player2.score + 1;
+        document.getElementById("playerO").value = player1.score;
     } else {
         console.log("incorrect answer, no points");
     }
